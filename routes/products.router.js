@@ -1,36 +1,36 @@
-const express = require('express');
-const { faker } = require('@faker-js/faker');
+// const express = require('express');
+// const { faker } = require('@faker-js/faker');
 
-const router = express.Router();
+// const router = express.Router();
 
-app.get('/', (req, res) => {
-  const products = [];
-  const { size } = req.query;
-  const limit = size || 10;
-  for (let index = 0; index < 100; index++) {
-      products.push({
-          name: faker.commerce.productName(),
-          price: parseInt(faker.commerce.price(), 10),
-          image: faker.image.imageURL
-      });
-  }
-  res.jason(products);
-});
-
-
-
-app.get('/filter', (req, res) => {
-  res.send('Yo soy un filter');
-});
-
-app.get('/:id', (req, res) => {
-  const { id } = req.params;
-  res.json({
-    id,
-    name: 'Poduct 2',
-    price: 2000
-  });
-});
+// app.get('/', (req, res) => {
+//   const products = [];
+//   const { size } = req.query;
+//   const limit = size || 10;
+//   for (let index = 0; index < 100; index++) {
+//       products.push({
+//           name: faker.commerce.productName(),
+//           price: parseInt(faker.commerce.price(), 10),
+//           image: faker.image.imageURL
+//       });
+//   }
+//   res.jason(products);
+// });
 
 
-module.exports = router;
+
+// app.get('/filter', (req, res) => {
+//   res.send('Yo soy un filter');
+// });
+
+// app.get('/:id', (req, res) => {
+//   const { id } = req.params;
+//   res.json({
+//     id,
+//     name: 'Poduct 2',
+//     price: 2000
+//   });
+// });
+
+
+// module.exports = router;
