@@ -1,9 +1,11 @@
 const express = require('express');
+const app = express();
 const { faker } = require('@faker-js/faker');
 
 const router = express.Router();
 
 
+// Abrimos otro endpoint para users:
 app.get('/users', (req, res) => {
   const { limit, offset } = req.query;
   if (limit && offset) {
@@ -12,8 +14,9 @@ app.get('/users', (req, res) => {
       offset
     });
   } else {
-    res.send('No hay promesas');
+    res.send('No hay parametros');
   }
 });
 
-Api.example.com/api/v1/users
+
+module.exports = router;
