@@ -1,11 +1,13 @@
 const express = require ('express');
+const cors = require('cors');
+
 const routerApi = require('./routes'); //nos traemos la función de index.js router
 // const routerApi = require ('/routes'); //nos traemos la función que escribimos en users.route
 
+const { logErrors, errorHandler, boomErrorHandler } = require('./middlewares/error.handler');
 
-const { faker } = require('@faker-js/faker');
 
-
+const { faker }  = require('faker');
 
 
 const app = express();
@@ -17,6 +19,20 @@ const port = 3000;
 //pero acá estoy en JAVASCRIPT en general asi que se usa con una constante y require como dice arriba..
 
 app.use(express.json());
+
+const whitelist = ['http://localhost:8080', 'http://myapp.com'];
+const options = {
+  origin: (origin, callback) => {
+    if (whitelist.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('no permitido'));
+    }
+  }
+}
+app.use(cors(options));
+
+
 
 
 
@@ -33,17 +49,9 @@ app.get('/nueva-ruta', (req, res) => {
 routerApi(app);
 
 
-app.get('/products', (req, res) => {
-  const products = [];
-  for (let index = 0; index < 100; index++) {
-    products.push({
-      name: faker.commerce.productName(),
-      price: parseInt(faker.commerce.price(), 10),
-      image: faker.image.imageUrl(),
-    });
-  }
-  res.json(products);
-});
+app.use(logErrors);
+app.use(boomErrorHandler);
+app.use(errorHandler);
 
 
 
@@ -54,6 +62,10 @@ app.get('/categories/:categoryId/products/:productId', (req, res) => {
     productId,
   });
 })
+
+
+
+
 
 
 
